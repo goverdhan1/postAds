@@ -1,0 +1,16 @@
+#search_places {
+    border-top:none !important;
+    border-left:none !important;
+    border-right:none !important;
+    border-bottom: 1px solid #999999;
+    font: inherit !important;
+    font-size: inherit !important;
+    padding:0px;
+}
+.apply-filer-but button {
+    color: #fff;
+    font-size: 18px;
+    font-weight: normal;
+    padding: 15px 0;
+    background: #ff5a60 !important;
+}

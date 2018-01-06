@@ -1,0 +1,109 @@
+<style>
+.add-photos-capture > input {
+  display: none;
+}
+</style>
+  <div class="filter-sec sele-typ-cate">
+    <div class="fil-header">
+      <div class="fi-he-le"><a (click)="goBack();"><i class="fa fa-angle-left"></i></a></div>
+      <div class="fi-he-mid">
+        Ad Details
+        <h3>Fill this to get more Ad visibility</h3>
+      </div>
+    </div>
+    <form class="example-form" #loginForm="ngForm" (ngSubmit)="processBasicInfo()">
+    <div class="addit-info-cont">
+      <div class="add-photos-capture" >
+          <label for="file-input">
+        <img src="assets/images/photo-icon.png" for="file-input">
+      </label>
+        <h3>Add Photos or Capture(optional) </h3>
+        <input type="file" id="file-input"
+        (change)="selectFile($event)">
+      </div>
+      <img [src]="url" *ngFor="let url of urls;" style="width:50px; height:50px; display:inline; margin:3px;">
+      <div class="additional-form">
+        <div class="title-sec">
+          <mat-form-field>
+            <input matInput
+              placeholder="Title"
+              name="title"
+              [(ngModel)]="ad.title"
+              [formControl]="titleFC"
+              [errorStateMatcher]="matcher"
+              >
+                <mat-error *ngIf="titleFC.hasError('required')">
+                  title is <strong>required</strong>
+                </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="title-sec">
+            <ng4geo-autocomplete (componentCallback)="autoCompleteCallback1($event)" [userSettings]="userSettings"></ng4geo-autocomplete>
+        </div>
+
+        <div class="title-sec drop-down-container">
+          <mat-form-field>
+            <mat-select  [formControl]="subCategoryFC" [errorStateMatcher]="matcher" placeholder="Sub category" name="sub-category" [(ngModel)]="this.ad.adDetails.primaryDetails.details.type">
+              <mat-option *ngFor="let subType of subCategory.subCategories" [value]="subType">
+                {{ subType }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="subCategoryFC.hasError('required')">
+              Sub Category is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="fuel-type-sec drop-down-container">
+          <mat-form-field>
+            <mat-select [formControl]="fuelTypeFC" [errorStateMatcher]="matcher" placeholder="Fuel Type" name="fuel-type" [(ngModel)]="this.ad.adDetails.headerDetails.fuel_type">
+              <mat-option *ngFor="let fuelType of fuelTypes" [value]="fuelType.value">
+                {{ fuelType.viewValue }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="fuelTypeFC.hasError('required')">
+              Fuel Type is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="transmission-sec">
+          <label>Transmission</label>
+          <div>
+              <mat-radio-group name="transmission" [(ngModel)]="this.ad.adDetails.headerDetails.transmission">
+                <mat-radio-button value="Manual">Manual</mat-radio-button>&nbsp;&nbsp;
+                <mat-radio-button value="Auto">Auto</mat-radio-button>
+              </mat-radio-group>
+          </div>
+        </div>
+
+        <div class="price-sec">
+          <mat-form-field>
+            <input matInput placeholder="Price"  name="price" [(ngModel)]="ad.price">
+          </mat-form-field>
+        </div>
+
+        <div class="kilometers-sec">
+          <mat-form-field>
+            <input matInput placeholder="Kilometers Driven"  name="kilometers" [(ngModel)]="this.ad.adDetails.headerDetails.kilometers">
+          </mat-form-field>
+        </div>
+
+        <div class="title-sec">
+          <mat-form-field>
+            <input matInput [formControl]="contactFC" [errorStateMatcher]="matcher" placeholder="Contact Number" name="phone" [(ngModel)]="ad.poster.phone">
+            <mat-error *ngIf="contactFC.hasError('required')">
+                Phone number is <strong>required</strong>
+              </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="apply-filer-but">
+      <button type="submit" [disabled]="!loginForm.valid">Proceed</button>
+      <!-- <a (click)="processBasicInfo()">Proceed</a> -->
+    </div>
+  </form>
+  </div>

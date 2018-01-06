@@ -1,0 +1,33 @@
+
+.mat-select-value-text{
+  text-transform: capitalize;
+}
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container > * {
+  width: 100%;
+}
+
+.button-row {
+  display: flex;
+  align-items: left;
+  justify-content: space-around;
+}
+
+.edit-btn{
+
+}
