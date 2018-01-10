@@ -13,22 +13,12 @@ import {Router} from '@angular/router';
   styleUrls: ['./post-ads.component.scss']
 })
 export class PostAdsComponent implements OnInit {
-DigitalizeformGroup: FormGroup;
-
-RONumber = new FormControl('', [Validators.required]);
-Phone = new FormControl('', [Validators.required]);
-Category = new FormControl('', [Validators.required]);
-SubCategory = new FormControl('', [Validators.required]);
-PublishOn = new FormControl('', [Validators.required]);
-
-digitalize:any={
-}
-
-
+digitalizeAdsForm: FormGroup;
+digitalize:any={};
 categories;
 subCat;
 
-  constructor(private _formBuilder: FormBuilder, private afs: AngularFirestore) {
+  constructor(private _formBuilder: FormBuilder, private afs: AngularFirestore, private router: Router;) {
     this.categories = this.getCategories();
   }
 
@@ -71,16 +61,23 @@ subCat;
     console.log("sub", this.subCat);
   }
   digitalizeAds(){
-    this.digitalize.uniqueAdDigitalizeId = UUID.UUID();
-    console.log(this.digitalize);
-    this.afs.collection("Ads").add({"uniqueAdDigitalizeId":this.digitalize.uniqueAdDigitalizeId});
-    this.afs.collection("NewsPaper-Ads").add(this.digitalize);
-    Router.navigateByUrl('/ad:')
+    if(this.digitalizeAdsForm.valid){
+      this.digitalize.uniqueAdDigitalizeId = UUID.UUID();
+      console.log(this.digitalize);
+//      this.afs.collection("Ads").add({"uniqueAdDigitalizeId":this.digitalize.uniqueAdDigitalizeId});
+//      this.afs.collection("NewsPaper-Ads").add(this.digitalize);
+      this.router.navigate(['/', this.digitalize.uniqueAdDigitalizeId]);
+    }
   }
 
 ngOnInit() {
-  this.DigitalizeformGroup = this._formBuilder.group({
-//    RONumber: ['', Validators.required]
+  this.digitalizeAdsForm = this._formBuilder.group({
+    "RONumber": [null, Validators.required],
+    "Phone":[null, Validators.required],
+    "Category":[null, Validators.required],
+    "SubCategory":[null, Validators.required],
+    "PublishOn":[null, Validators.required]
+
   });
 }
 

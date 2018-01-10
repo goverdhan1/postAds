@@ -4,43 +4,43 @@
   </mat-toolbar-row>
 </mat-toolbar>
 <div class="example-container">
-  <form class="example-container" [formGroup]="DigitalizeformGroup" (ngSubmit)="digitalizeAds()">
+  <form class="example-container" [formGroup]="digitalizeAdsForm" (ngSubmit)="digitalizeAds()">
   <mat-form-field>
-    <input matInput placeholder="RO Number" [formControl]="RONumber" [(ngModel)]="digitalize.RONumber" required />
-     <mat-error *ngIf="RONumber.invalid">RO Number is required.</mat-error>
+    <input matInput placeholder="RO Number" [formControl]="digitalizeAdsForm.controls['RONumber']" [(ngModel)]="digitalize.RONumber" required />
+     <mat-error *ngIf="digitalizeAdsForm.controls['RONumber'].invalid">RO Number is required.</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Phone" type="tel" [formControl]="Phone" [(ngModel)]="digitalize.Phone" required />
-    <mat-error *ngIf="Phone.invalid">Phone is required.</mat-error>
+    <input matInput placeholder="Phone" type="tel" [formControl]="digitalizeAdsForm.controls['Phone']" [(ngModel)]="digitalize.Phone" required />
+    <mat-error *ngIf="digitalizeAdsForm.controls['Phone'].invalid">Phone is required.</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <mat-select placeholder="Category" [formControl]="Category" (change)="loadSubCategories($event, digitalize.Category)" [(ngModel)]="digitalize.Category" required>
+    <mat-select placeholder="Category" [formControl]="digitalizeAdsForm.controls['Category']" (change)="loadSubCategories($event, digitalize.Category)" [(ngModel)]="digitalize.Category" required>
       <mat-option value="null">Select a Category</mat-option>
       <mat-option value="{{category.id}}" *ngFor="let category of categories | async">{{category.name}}</mat-option>
     </mat-select>
-    <mat-error *ngIf="Category.invalid">Category is required.</mat-error>
+    <mat-error *ngIf="digitalizeAdsForm.controls['Category'].invalid">Category is required.</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <mat-select placeholder="Sub Category" [formControl]="SubCategory" [disabled]="!digitalize.Category" [(ngModel)]="digitalize.SubCategory" required>
+    <mat-select placeholder="Sub Category" [formControl]="digitalizeAdsForm.controls['SubCategory']" [disabled]="!digitalize.Category" [(ngModel)]="digitalize.SubCategory" required>
       <mat-option value="null">Select a Sub Category</mat-option>
       <mat-option class="title-case" value="{{subcategory.id}}" *ngFor="let subcategory of subCat | async">{{subcategory.name}}</mat-option>
     </mat-select>
-    <mat-error *ngIf="SubCategory.invalid">SubCategory is required.</mat-error>
+    <mat-error *ngIf="digitalizeAdsForm.controls['SubCategory'].invalid">SubCategory is required.</mat-error>
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" placeholder="Publish On" [formControl]="PublishOn" [(ngModel)]="digitalize.publishOn" required>
+    <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" placeholder="Publish On" [formControl]="digitalizeAdsForm.controls['PublishOn']" [(ngModel)]="digitalize.publishOn" required>
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
-    <mat-error *ngIf="PublishOn.invalid">Publish On is required.</mat-error>
+    <mat-error *ngIf="digitalizeAdsForm.controls['PublishOn'].invalid">Publish On is required.</mat-error>
   </mat-form-field>
 
 <div>
       <button mat-raised-button color="basic" type="reset">Reset</button>
-      <button mat-raised-button color="primary" type="submit" >Submit</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!digitalizeAdsForm.valid" >Submit</button>
 </div>
 </form>
 
